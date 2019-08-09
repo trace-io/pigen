@@ -2,16 +2,18 @@ const { isExist, mkdir } = require('./utils').files;
 const { generateDirectoriesTree } = require('./utils').utils;
 const { log, error } = console;
 const touch = require('touch');
+const fs = require('fs');
 
 const pigen = {};
 pigen.generate = async (createIn) => {
     try {
-        if (isExist('./pigen.json')) {
+        const pigenFilePath = `${process.cwd()}/pigen.json`;
+        if (isExist(pigenFilePath)) {
             if (createIn !== './' && !isExist(createIn)) {
                await mkdir(createIn);
             }
-            const pigenfile = require('./pigen.json');
-            const tree = generateDirectoriesTree(pigenfile.dirs, createIn);
+            const pigenFile = JSON.parse(fs.readFileSync(pigenFilePath, 'utf-8'));
+            const tree = generateDirectoriesTree(pigenFile.dirs || [], createIn);
             tree.forEach(async ({ path, files, name }) => {
                 if (!isExist(path)) {
                     await mkdir(path);
@@ -31,7 +33,12 @@ pigen.generate = async (createIn) => {
             log("no pigen file to generate");
         }
     } catch (ex) {
-        error(ex);
+        if (String(ex) === 'SyntaxError: Unexpected end of JSON input') {
+            log('[error] Invalid pigen file!');
+            return;
+        }
+        error(String(ex));
+
     }
 }
 
