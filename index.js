@@ -12,9 +12,12 @@ const pigen = require('./pigen');
             }
             pigen.generate(createIn);
             break;
-        case '':
+        case '--save':
+        case '-s':
+            pigen.save();
             break;
         default:
+            pigen.default();
             break;
     }
 })();
