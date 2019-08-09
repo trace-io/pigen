@@ -1,0 +1,26 @@
+{
+  "name": "pigen",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": [
+    "project",
+    "structures",
+    "files",
+    "tree",
+    "project scaffolding",
+    "scaffolding",
+    "pigen"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "pigen": "./index.js"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "figlet": "^1.2.3",
+    "touch": "^3.1.0",
+    "treeify": "^1.1.0",
+    "uuid": "^3.3.2"
+  }
+}
