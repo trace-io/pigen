@@ -1,49 +1,19 @@
 const { isExist, mkdir } = require('./utils').files;
-const { generateDirectoriesTree } = require('./utils').utils;
 const { log, error } = console;
-const touch = require('touch');
 const fs = require('fs');
-const { save, has } = require('./utils').store;
+const { save, has, get, getByKey } = require('./utils').store;
 const pkg = require('./package.json');
-const { printLogo, message } = require('./utils').display;
+const { message } = require('./utils').display;
+const commands = require('./commands');
 
 const pigen = {};
-pigen.generate = async (createIn) => {
+pigen.generate = async (createIn, structureName) => {
     try {
-        const pigenFilePath = `${process.cwd()}/pigen.json`;
-        if (isExist(pigenFilePath)) {
-            if (createIn !== './' && !isExist(createIn)) {
-                await mkdir(createIn);
-            }
-            const pigenFile = JSON.parse(fs.readFileSync(pigenFilePath, 'utf-8'));
-            const tree = generateDirectoriesTree(pigenFile.dirs || [], createIn);
-            tree.forEach(async ({ path, files, name }) => {
-                if (!isExist(path)) {
-                    await mkdir(path);
-                    message('success', `${name} created successfully!`);
-                }
-                if (files.length > 0) {
-                    files.forEach(async file => {
-                        const filePath = `${path}/${file}`;
-                        if (!isExist(filePath)) {
-                            touch.sync(filePath);
-                            message('success', `${file} created successfully!`);
-                        }
-                    });
-                }
-            });
-        } else {
-            message('warning', 'not a pigen project')
-        }
+        commands.generate(createIn, structureName)
     } catch (ex) {
-        if (String(ex) === 'SyntaxError: Unexpected end of JSON input') {
-            message('error', 'invalid pigen file!')
-            return;
-        }
-        message('error', 'unexpected error happened!')
-        error(String(ex));
+        error(ex);
     }
-}
+};
 
 pigen.save = async () => {
     try {
@@ -75,18 +45,23 @@ pigen.save = async () => {
 
 pigen.list = () => {
     try {
-
+        const structures = get();
+        const names = Object.keys(structures);
+        message('info', `found ${names.length} saved structures!`)
+        names.forEach((name, index) => {
+            message('', `${name}`);
+        });
     } catch (ex) {
         message('error', 'unexpected error happened!');
     }
 }
 
-pigen.default = () => {
-    try {
-        printLogo(pkg)
-    } catch (ex) {
-        message('error', 'unexpected error happened!');
-    }
-};
+pigen.help = () => {
+    log(commands.help())
+}
+
+pigen.init = (isForced) => {
+    commands.init(isForced);
+}
 
 module.exports = pigen;
