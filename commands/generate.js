@@ -15,15 +15,16 @@ const addToPigen = (tree) => {
     fs.writeFileSync('./pigen.json', JSON.stringify(tree, null, 3));
 }
 
-const generate = async (tree) => {
+const generate = (tree) => {
     try {
-        tree.forEach(async ({ path, files, name }) => {
+        tree.forEach(({ path, files, name }) => {
+            path = process.cwd() + path;
             if (!isExist(path)) {
-                await mkdir(path);
+                mkdir(path);
                 message('', `${name} created successfully!`);
             }
             if (files.length > 0) {
-                files.forEach(async file => {
+                files.forEach(file => {
                     const filePath = `${path}/${file}`;
                     if (!isExist(filePath)) {
                         touch.sync(filePath);
@@ -38,11 +39,10 @@ const generate = async (tree) => {
 
 }
 
-module.exports = async (createIn, structureName) => {
+module.exports = (createIn, structureName) => {
     try {
-
-        if (createIn !== './' && !isExist(createIn)) {
-            await mkdir(createIn);
+        if (createIn !== '' && !isExist(createIn)) {
+            mkdir(createIn);
         }
         // generate project structure from a saved list
         if (structureName) {

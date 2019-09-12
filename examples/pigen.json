@@ -3,62 +3,96 @@
   "dirs": [
     {
       "name": "bin",
-      "files": ["www.js"]
+      "files": [
+        "www.js"
+      ]
     },
     {
       "name": "server",
       "dirs": [
         {
           "name": "components",
-          "files": ["index.js"],
-          "dirs": [{
-              "name": "users",
-              "files": ["users.js", "index.js", "users.model.js", "users.schema.js"]
-          }]
-        },
-        {
-          "name": "config",
-          "files": ["index.js"],
+          "files": [
+            "index.js"
+          ],
           "dirs": [
             {
-              "name": "server",
-              "files": ["server.js", "index.js"],
-              "dirs": []
-            },
-            {
-              "name": "db",
-              "files": ["db.js", "index.js"],
-              "dirs": []
-            },
-            {
-                "name": "redis",
-                "files": ["redis.js", "index.js"]
+              "name": "users",
+              "files": [
+                "users.js",
+                "index.js",
+                "users.model.js",
+                "users.schema.js"
+              ]
             }
           ]
         },
         {
-            "name": "workers",
-            "dirs": [
+          "name": "config",
+          "files": [
+            "index.js"
+          ],
+          "dirs": [
+            {
+              "name": "server",
+              "files": [
+                "server.js",
+                "index.js"
+              ],
+              "dirs": []
+            },
+            {
+              "name": "db",
+              "files": [
+                "db.js",
+                "index.js"
+              ],
+              "dirs": []
+            },
+            {
+              "name": "redis",
+              "files": [
+                "redis.js",
+                "index.js"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "workers",
+          "dirs": [
+            {
+              "name": "rabbitmq",
+              "dirs": [
                 {
-                    "name": "rabbitmq",
-                    "dirs": [
-                        {
-                            "name": "producers",
-                            "files": ["index.js", "producer.js"]
-                        },
-                        {
-                            "name": "consumers",
-                            "files": ["index.js", "consumer.js"]
-                        }
-                    ]
+                  "name": "producers",
+                  "files": [
+                    "index.js",
+                    "producer.js"
+                  ]
                 },
                 {
-                    "name": "redis",
-                    "files": ["index.js", "producer.js"]
+                  "name": "consumers",
+                  "files": [
+                    "index.js",
+                    "consumer.js"
+                  ]
                 }
-            ]
+              ]
+            },
+            {
+              "name": "redis",
+              "files": [
+                "index.js",
+                "producer.js"
+              ]
+            }
+          ]
         }
       ]
     }
+  ],
+  "files": [
+    ".gitignore"
   ]
 }

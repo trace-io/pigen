@@ -1,5 +1,7 @@
 module.exports = {
     help: require('./help'),
     init: require('./init'),
-    generate: require('./generate')
+    generate: require('./generate'),
+    list: require('./list'),
+    save: require('./save')
 };

@@ -1,4 +1,5 @@
 const commandLineUsage = require('command-line-usage');
+const { log } = console;
 
 module.exports = () => {
     const sections = [
@@ -8,7 +9,7 @@ module.exports = () => {
         },
         {
             header: 'Synopsis',
-            content: '$ pigen <options> <command>'
+            content: '$ pigen <command> <options>'
         },
         {
             header: "Command List",
@@ -51,5 +52,5 @@ module.exports = () => {
             ]
         }
     ]
-    return commandLineUsage(sections)
+    log(commandLineUsage(sections))
 };

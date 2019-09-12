@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const pigen = require('./pigen');
+const commands = require('./commands');
 
 (async () => {
     const args = process.argv.slice(2);
@@ -7,40 +7,40 @@ const pigen = require('./pigen');
         case 'init':
         case 'i':
             if (args.includes('--force') || args.includes('-f')) {
-                pigen.init(true);
+                commands.init(true)
                 return;
             }
-            pigen.init(false);
+            commands.init(false);
             break;
         case 'generate':
         case 'g':
-            let createIn = './';
+            let createIn = '';
             if (args.includes('--in')) {
                 let indexOfIn = args.indexOf('--in')
                 const createdInName = args[indexOfIn + 1]
-                createIn = createdInName ? `./${createdInName}` : createIn;
+                createIn = createdInName ? `/${createdInName}` : createIn;
             }
             let structureName = '';
             if (args.includes('--from')) {
                 let indexOfFrom = args.indexOf('--from')
                 structureName = args[indexOfFrom + 1] ? args[indexOfFrom + 1] : ''
             }
-            pigen.generate(createIn, structureName);
+            commands.generate(createIn, structureName);
             break;
         case 'save':
         case 's':
-            pigen.save();
+            commands.save();
             break;
         case 'list':
         case 'l':
-            pigen.list();
+            commands.list();
             break;
         case '--help':
         case '-h':
-            pigen.help();
+            commands.help();
             break;
         default:
-            pigen.help();
+            commands.help();
             break;
     }
 })();

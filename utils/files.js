@@ -1,10 +1,9 @@
 const { existsSync } = require('fs');
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
+const mkdirp = require('mkdirp');
 
 const files = {};
 
-files.mkdir = async (dir) => await exec(`mkdir ${dir}`);
+files.mkdir = (dir) => mkdirp.sync(dir);
 
 files.isExist = (dir) => existsSync(dir);
 

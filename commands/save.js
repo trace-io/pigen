@@ -1,21 +1,10 @@
-const { isExist, mkdir } = require('./utils').files;
-const { log, error } = console;
+const { isExist } = require('../utils').files;
+const { error } = console;
 const fs = require('fs');
-const { save, has, get, getByKey } = require('./utils').store;
-const pkg = require('./package.json');
-const { message } = require('./utils').display;
-const commands = require('./commands');
+const { save, has } = require('../utils').store;
+const { message } = require('../utils').display;
 
-const pigen = {};
-pigen.generate = async (createIn, structureName) => {
-    try {
-        commands.generate(createIn, structureName)
-    } catch (ex) {
-        error(ex);
-    }
-};
-
-pigen.save = async () => {
+module.exports = () => {
     try {
         const pigenFilePath = `${process.cwd()}/pigen.json`;
         if (isExist(pigenFilePath)) {
@@ -41,27 +30,4 @@ pigen.save = async () => {
         message('error', 'unexpected error happened!');
         error(String(ex));
     }
-};
-
-pigen.list = () => {
-    try {
-        const structures = get();
-        const names = Object.keys(structures);
-        message('info', `found ${names.length} saved structures!`)
-        names.forEach((name, index) => {
-            message('', `${name}`);
-        });
-    } catch (ex) {
-        message('error', 'unexpected error happened!');
-    }
 }
-
-pigen.help = () => {
-    log(commands.help())
-}
-
-pigen.init = (isForced) => {
-    commands.init(isForced);
-}
-
-module.exports = pigen;
