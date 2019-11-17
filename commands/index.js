@@ -3,5 +3,6 @@ module.exports = {
     init: require('./init'),
     generate: require('./generate'),
     list: require('./list'),
-    save: require('./save')
+    save: require('./save'),
+    version: require('./version')
 };

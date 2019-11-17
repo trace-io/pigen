@@ -29,6 +29,14 @@ module.exports = () => {
                 {
                     name: 'list',
                     description: "List all project structures saved for later use.",
+                },
+                {
+                    name: 'help',
+                    description: "Show help.",
+                },
+                {
+                    name: 'version',
+                    description: "Show pigen current version.",
                 }
             ]
         },
@@ -48,6 +56,11 @@ module.exports = () => {
                     name: 'help',
                     alias: 'h',
                     description: 'Show help.'
+                },
+                {
+                    name: 'version',
+                    alias: 'v',
+                    description: 'Show current pigen version.'
                 }
             ]
         }
